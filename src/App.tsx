@@ -3,9 +3,11 @@ import {
   ChevronUpIcon,
   SwitchVerticalIcon,
 } from '@heroicons/react/solid';
-import { useMemo, useState } from 'react';
 import useFilter from './hooks/useFilter';
 import useSort from './hooks/useSort';
+
+// JSON data was generated with faker
+// import data from './somedata-small.json';
 import data from './somedata.json';
 
 type ArrayElement<ArrayType extends readonly unknown[]> =
@@ -15,7 +17,6 @@ type DataKey = keyof ArrayElement<typeof data>;
 
 function App() {
   const { sortedData, sortBy, updateSortBy, sortDirection } = useSort(data);
-
   const {
     filteredData: filteredSortedData,
     filterValue,
