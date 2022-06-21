@@ -10,9 +10,12 @@ export default function useSort<T>(data: Array<T>) {
     if (!sortBy) {
       return [...data];
     }
-    return [...data].sort(
-      (a, b) => sortDirection * (a[sortBy] > b[sortBy] ? 1 : -1),
-    );
+    return [...data].sort((a, b) => {
+      if (a[sortBy] === b[sortBy]) {
+        return 0;
+      }
+      return sortDirection * (a[sortBy] > b[sortBy] ? 1 : -1);
+    });
   }, [data, sortBy, sortDirection]);
 
   function updateSortBy(key?: keyof T) {
