@@ -46,7 +46,9 @@ function App() {
       );
     }
 
-    return <SwitchVerticalIcon className="w-5 h-5 inline align-middle" />;
+    return (
+      <SwitchVerticalIcon className="w-5 h-5 inline align-middle text-slate-400" />
+    );
   };
 
   return (
@@ -64,10 +66,13 @@ function App() {
             onChange={(e) => setFilterValue(e.target.value)}
           />
         </div>
+        <div className="py-4">
+          <button onClick={() => updateSortBy('')}>reset sorting</button>
+        </div>
       </header>
 
       <table className="w-full">
-        <thead className="text-teal-200">
+        <thead className="text-teal-400">
           <tr>
             {Object.entries(headings).map(([key, value]) => (
               <th
