@@ -5,6 +5,7 @@ import {
 } from '@heroicons/react/solid';
 import useFilter from './hooks/useFilter';
 import useSort from './hooks/useSort';
+import TheTable from './components/TheTable';
 
 // JSON data was generated with faker
 // import data from './somedata-small.json';
@@ -20,8 +21,6 @@ function App() {
     setFilterValue,
   } = useFilter(sortedData);
 
-  const onHeadingClick = (key: keyof DataItem) => updateSortBy(key);
-
   const headings = {
     firstName: 'first name',
     lastName: 'last name',
@@ -29,6 +28,8 @@ function App() {
     phone: 'phone',
     country: 'country',
   };
+
+  const onHeadingClick = (key: keyof DataItem) => updateSortBy(key);
 
   const renderIcon = (key: string) => {
     if (sortBy === key) {
@@ -68,33 +69,22 @@ function App() {
         </div>
       </header>
 
-      <table className="w-full">
-        <thead className="text-teal-400">
-          <tr>
-            {Object.entries(headings).map(([key, value]) => (
-              <th
-                key={key}
-                className="cursor-pointer"
-                onClick={() => onHeadingClick(key as keyof DataItem)}
-              >
-                {value}
-                {renderIcon(key)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSortedData.map((row) => (
-            <tr key={row.email}>
-              <td>{row.firstName}</td>
-              <td>{row.lastName}</td>
-              <td>{row.email}</td>
-              <td>{row.phone}</td>
-              <td>{row.country}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TheTable
+        data={filteredSortedData}
+        headings={headings}
+        onHeadingClick={onHeadingClick}
+        getKey={(item) => item.email}
+        renderIcon={renderIcon}
+        renderItem={(item) => (
+          <>
+            <td>{item.firstName}</td>
+            <td>{item.lastName}</td>
+            <td>{item.email}</td>
+            <td>{item.phone}</td>
+            <td>{item.country}</td>
+          </>
+        )}
+      />
     </div>
   );
 }
