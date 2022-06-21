@@ -10,10 +10,7 @@ import useSort from './hooks/useSort';
 // import data from './somedata-small.json';
 import data from './somedata.json';
 
-type ArrayElement<ArrayType extends readonly unknown[]> =
-  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
-
-type DataKey = keyof ArrayElement<typeof data>;
+type DataItem = typeof data[number];
 
 function App() {
   const { sortedData, sortBy, updateSortBy, sortDirection } = useSort(data);
@@ -23,7 +20,7 @@ function App() {
     setFilterValue,
   } = useFilter(sortedData);
 
-  const onHeadingClick = (key: DataKey) => updateSortBy(key);
+  const onHeadingClick = (key: keyof DataItem) => updateSortBy(key);
 
   const headings = {
     firstName: 'first name',
@@ -67,7 +64,7 @@ function App() {
           />
         </div>
         <div className="py-4">
-          <button onClick={() => updateSortBy('')}>reset sorting</button>
+          <button onClick={() => updateSortBy()}>reset sorting</button>
         </div>
       </header>
 
@@ -78,7 +75,7 @@ function App() {
               <th
                 key={key}
                 className="cursor-pointer"
-                onClick={() => onHeadingClick(key as DataKey)}
+                onClick={() => onHeadingClick(key as keyof DataItem)}
               >
                 {value}
                 {renderIcon(key)}
