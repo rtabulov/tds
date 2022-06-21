@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "vite --host --base=/tds/",
+    "build": "tsc && vite build --base=/tds/",
+    "preview": "vite preview --base=/tds/"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
